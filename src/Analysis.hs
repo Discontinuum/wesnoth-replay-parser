@@ -39,6 +39,7 @@ parseChat replayTag =
    
 data Multiplayer = MP {
   title :: String,
+  scenarioId :: String,
   mapName :: String,
   eraId :: String,
   eraName :: String,
@@ -52,10 +53,11 @@ parseMultiplayer tag =
     attrs = getAttrsMap (getTagValue tag)
     sh = isTrue $ M.findWithDefault "no" "shuffle_sides" attrs
     t = M.findWithDefault "" "scenario" attrs
+    scId = M.findWithDefault "" "mp_scenario" attrs
     mN = M.findWithDefault "" "mp_scenario_name" attrs
     eId = M.findWithDefault "" "mp_era" attrs
     eN = M.findWithDefault "" "mp_era_name" attrs
     o = isTrue $ M.findWithDefault "no" "observer" attrs
     tE = isTrue $ M.findWithDefault "no" "mp_countdown" attrs
   in
-    MP{title=t, mapName=mN, eraId=eId, eraName=eN, observers=o,timerEnabled=tE, shuffle=sh}
+    MP{title=t, mapName=mN, eraId=eId, eraName=eN, observers=o,timerEnabled=tE, shuffle=sh,scenarioId=scId}
